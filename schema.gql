@@ -1,0 +1,53 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserDTO {
+  id: String
+  userName: String
+  email: String
+  password: String
+  bio: String
+  profilePicture: String
+  posts: [PostDTO!]
+}
+
+type PostDTO {
+  id: String
+  title: String
+  content: String
+  date: DateTime
+  user: UserDTO
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  getAllPost: [PostDTO!]!
+  getPost(id: String!): PostDTO
+  getAllUser: [UserDTO!]!
+  getUser(id: String!): UserDTO!
+}
+
+type Mutation {
+  createAPost(postInputDTO: PostInputDTO!): PostDTO!
+  signup(userInputDTO: UserInputDTO!): UserDTO!
+}
+
+input PostInputDTO {
+  title: String!
+  content: String!
+  userId: String
+}
+
+input UserInputDTO {
+  userName: String!
+  email: String!
+  password: String!
+  bio: String!
+  profilePicture: String!
+  posts: [PostInputDTO!]
+}
