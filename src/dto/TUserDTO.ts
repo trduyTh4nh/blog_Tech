@@ -1,8 +1,8 @@
 import { Field, InputType, ObjectType } from "@nestjs/graphql";
-import { PostDTO, PostInputDTO } from "./TPostDTO";
+import { TPostDTO, TPostInputDTO } from "./TPostDTO";
 
 @ObjectType()
-export class UserDTO {
+export class TUserDTO {
   @Field({ nullable: true })
   id: string;
 
@@ -21,12 +21,15 @@ export class UserDTO {
   @Field({ nullable: true })
   profilePicture: string;
 
-  @Field(() => [PostDTO], { nullable: true })
-  posts?: PostDTO[];
+  @Field(() => [TPostDTO], { nullable: true })
+  posts?: TPostDTO[];
+
+  @Field({ nullable: true })
+  createdAt: Date;
 }
 
 @InputType()
-export class UserInputDTO {
+export class TUserInputDTO {
   @Field()
   userName: string;
 
@@ -42,6 +45,6 @@ export class UserInputDTO {
   @Field()
   profilePicture: string;
 
-  @Field(() => [PostInputDTO], { nullable: true })
-  posts?: PostInputDTO[];
+  @Field(() => [TPostInputDTO], { nullable: true })
+  posts?: TPostInputDTO[];
 }

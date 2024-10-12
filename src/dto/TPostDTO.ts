@@ -1,8 +1,9 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
-import { UserDTO } from './TUserDTO';
+import { Field, InputType, ObjectType } from "@nestjs/graphql";
+import { TUserDTO } from "./TUserDTO";
+import { TImageDTO } from "./TImageDTO";
 
 @ObjectType()
-export class PostDTO {
+export class TPostDTO {
   @Field({ nullable: true })
   id: string;
 
@@ -13,21 +14,30 @@ export class PostDTO {
   content: string;
 
   @Field({ nullable: true })
-  date: Date;
+  createdAt: Date;
 
-  @Field(() => UserDTO, { nullable: true })
-  user?: UserDTO;
+  @Field({ nullable: true })
+  updatedAt: Date;
+
+  @Field(() => TUserDTO, { nullable: true })
+  user?: TUserDTO;
+
+  @Field(() => [TImageDTO], { nullable: true })
+  images?: TImageDTO[];
 }
 
-
 @InputType()
-export class PostInputDTO {
+export class TPostInputDTO {
   @Field()
-  title: string
+  title: string;
 
   @Field()
-  content: string
+  content: string;
 
   @Field(() => String, { nullable: true })
-  userId: string
+  userId: string;
+
+  @Field(() => [String], { nullable: true })
+  imageIds?: string[];
+  // chỗ này nhớ call api tạo hình ảnh rồi lấy id ảnh save vào đây
 }

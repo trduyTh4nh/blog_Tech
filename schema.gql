@@ -2,22 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type UserDTO {
+type TImageDTO {
   id: String
-  userName: String
-  email: String
-  password: String
-  bio: String
-  profilePicture: String
-  posts: [PostDTO!]
-}
-
-type PostDTO {
-  id: String
-  title: String
-  content: String
-  date: DateTime
-  user: UserDTO
+  imageUrl: String
+  description: String
+  createdAt: DateTime
+  post: TPostDTO
 }
 
 """
@@ -25,29 +15,236 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type TPostDTO {
+  id: String
+  title: String
+  content: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: TUserDTO
+  images: [TImageDTO!]
+}
+
+type TUserDTO {
+  id: String
+  userName: String
+  email: String
+  password: String
+  bio: String
+  profilePicture: String
+  posts: [TPostDTO!]
+  createdAt: DateTime
+}
+
+type BaseResponse {
+  success: Boolean
+  code: String
+  message: String
+}
+
+type PaginationInfo {
+  totalItems: Int!
+  totalPages: Int!
+  itemsPerPage: Int!
+  currentPage: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type TUserDTOPaginatedResponse {
+  items: [TUserDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TPostDTOPaginatedResponse {
+  items: [TPostDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TImageDTOPaginatedResponse {
+  items: [TImageDTO!]!
+  pageInfo: PaginationInfo!
+}
+
 type Query {
-  getAllPost: [PostDTO!]!
-  getPost(id: String!): PostDTO
-  getAllUser: [UserDTO!]!
-  getUser(id: String!): UserDTO!
+  getUser(where: TUserWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TUserOrderByInput!], groupBy: [UserGroupByFieldsEnum!]): TUserDTOPaginatedResponse!
+  getPost(where: TPostWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TPostOrderByInput!], groupBy: [PostGroupByFieldsEnum!]): TPostDTOPaginatedResponse!
+  getImage(where: TImageWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TImageOrderByInput!], groupBy: [ImageGroupByFieldsEnum!]): TImageDTOPaginatedResponse!
+}
+
+input TUserWhereInput {
+  AND: [TUserWhereInput!]
+  OR: [TUserWhereInput!]
+  NOT: [TUserWhereInput!]
+  id: StringFilter
+  userName: StringFilter
+  email: StringFilter
+  password: StringFilter
+  bio: StringFilter
+  profilePicture: StringFilter
+  createdAt: DateFilter
+  posts: TPostWhereInput
+}
+
+input StringFilter {
+  equals: String
+  isNull: Boolean
+  not: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
+input DateFilter {
+  equals: DateTime
+  not: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+}
+
+input TPostWhereInput {
+  AND: [TPostWhereInput!]
+  OR: [TPostWhereInput!]
+  NOT: [TPostWhereInput!]
+  id: StringFilter
+  userId: StringFilter
+  title: StringFilter
+  content: StringFilter
+  createdAt: DateFilter
+  updatedAt: DateFilter
+  user: TUserWhereInput
+  images: TImageWhereInput
+}
+
+input TImageWhereInput {
+  AND: [TImageWhereInput!]
+  OR: [TImageWhereInput!]
+  NOT: [TImageWhereInput!]
+  id: StringFilter
+  imageUrl: StringFilter
+  description: StringFilter
+  createdAt: DateFilter
+  postId: StringFilter
+  post: TPostWhereInput
+}
+
+input TUserOrderByInput {
+  id: SortEnumType
+  userName: SortEnumType
+  email: SortEnumType
+  password: SortEnumType
+  bio: SortEnumType
+  profilePicture: SortEnumType
+  createdAt: SortEnumType
+  posts: [TPostOrderByInput!]
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input TPostOrderByInput {
+  id: SortEnumType
+  userId: SortEnumType
+  title: SortEnumType
+  content: SortEnumType
+  createdAt: SortEnumType
+  updatedAt: SortEnumType
+  user: [TUserOrderByInput!]
+  images: [TImageOrderByInput!]
+}
+
+input TImageOrderByInput {
+  id: SortEnumType
+  imageUrl: SortEnumType
+  description: SortEnumType
+  createdAt: SortEnumType
+  postId: SortEnumType
+  post: [TPostOrderByInput!]
+}
+
+"""Fields available for grouping for UserGroupByFieldsEnum"""
+enum UserGroupByFieldsEnum {
+  id
+  userName
+  email
+  password
+  bio
+  profilePicture
+  createdAt
+}
+
+"""Fields available for grouping for PostGroupByFieldsEnum"""
+enum PostGroupByFieldsEnum {
+  id
+  userId
+  title
+  content
+  createdAt
+  updatedAt
+}
+
+"""Fields available for grouping for ImageGroupByFieldsEnum"""
+enum ImageGroupByFieldsEnum {
+  id
+  imageUrl
+  description
+  createdAt
+  postId
 }
 
 type Mutation {
-  createAPost(postInputDTO: PostInputDTO!): PostDTO!
-  signup(userInputDTO: UserInputDTO!): UserDTO!
+  createUser(input: TUserInput!): TUserDTO!
+  createManyUser(input: [TUserInput!]!): [TUserDTO!]!
+  updateUser(input: TUserInput!): TUserDTO!
+  updateManyUser(input: [TUserInput!]!): [TUserDTO!]!
+  deleteUser(id: String!): BaseResponse!
+  createPost(input: TPostInput!): TPostDTO!
+  createManyPost(input: [TPostInput!]!): [TPostDTO!]!
+  updatePost(input: TPostInput!): TPostDTO!
+  updateManyPost(input: [TPostInput!]!): [TPostDTO!]!
+  deletePost(id: String!): BaseResponse!
+  createImage(input: TImageInput!): TImageDTO!
+  createManyImage(input: [TImageInput!]!): [TImageDTO!]!
+  updateImage(input: TImageInput!): TImageDTO!
+  updateManyImage(input: [TImageInput!]!): [TImageDTO!]!
+  deleteImage(id: String!): BaseResponse!
 }
 
-input PostInputDTO {
-  title: String!
-  content: String!
+input TUserInput {
+  id: String
+  userName: String
+  email: String
+  password: String
+  bio: String
+  profilePicture: String
+  createdAt: DateTime
+}
+
+input TPostInput {
+  id: String
   userId: String
+  title: String
+  content: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
-input UserInputDTO {
-  userName: String!
-  email: String!
-  password: String!
-  bio: String!
-  profilePicture: String!
-  posts: [PostInputDTO!]
+input TImageInput {
+  id: String
+  imageUrl: String
+  description: String
+  createdAt: DateTime
+  postId: String
 }

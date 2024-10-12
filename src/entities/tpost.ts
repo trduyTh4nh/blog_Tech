@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
-import { User } from "./t.user";
+import { TUser } from "./tuser";
+import { TImage } from "./timage";
 
 @Entity("post")
-export class Post {
+export class TPost {
   @PrimaryGeneratedColumn("uuid")
   id: string | null;
 
@@ -21,10 +23,24 @@ export class Post {
   @Column({ type: "text" })
   content: string | null;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  date: Date | null;
+  @Column({
+    name: "created_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  createdAt: Date | null;
 
-  @ManyToOne(() => User, (user) => user.posts, { onDelete: "CASCADE" })
+  @Column({
+    name: "updated_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  updatedAt: Date | null;
+
+  @ManyToOne(() => TUser, (user) => user.posts, { onDelete: "CASCADE" })
   @JoinColumn({ name: "user_id", referencedColumnName: "id" })
-  user: User;
+  user: TUser;
+
+  @OneToMany(() => TImage, (image) => image.post)
+  images: TImage[];
 }
