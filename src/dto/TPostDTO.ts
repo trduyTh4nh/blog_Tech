@@ -26,7 +26,7 @@ export class TPostDTO {
   images?: TImageDTO[];
 }
 
-@InputType()
+@InputType("TPostInputF")
 export class TPostInputDTO {
   @Field()
   title: string;
@@ -34,7 +34,7 @@ export class TPostInputDTO {
   @Field()
   content: string;
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String)
   userId: string;
 
   @Field(() => [String], { nullable: true })

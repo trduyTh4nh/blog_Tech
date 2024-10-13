@@ -1,6 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TPost } from "./tpost";
 import { InputType } from "@nestjs/graphql";
+require("dotenv").config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
 @Entity("users")
 export class TUser {
@@ -33,6 +36,12 @@ export class TUser {
     default: () => "CURRENT_TIMESTAMP",
   })
   createdAt: Date | null;
+
+  @Column({
+    type: "varchar",
+    default: process.env.USER_ROLE,
+  })
+  role: string;
 
   @OneToMany(() => TPost, (post) => post.user, { nullable: true })
   posts: TPost[];

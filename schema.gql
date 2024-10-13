@@ -83,6 +83,7 @@ input TUserWhereInput {
   bio: StringFilter
   profilePicture: StringFilter
   createdAt: DateFilter
+  role: StringFilter
   posts: TPostWhereInput
 }
 
@@ -146,6 +147,7 @@ input TUserOrderByInput {
   bio: SortEnumType
   profilePicture: SortEnumType
   createdAt: SortEnumType
+  role: SortEnumType
   posts: [TPostOrderByInput!]
 }
 
@@ -183,6 +185,7 @@ enum UserGroupByFieldsEnum {
   bio
   profilePicture
   createdAt
+  role
 }
 
 """Fields available for grouping for PostGroupByFieldsEnum"""
@@ -215,6 +218,7 @@ type Mutation {
   updatePost(input: TPostInput!): TPostDTO!
   updateManyPost(input: [TPostInput!]!): [TPostDTO!]!
   deletePost(id: String!): BaseResponse!
+  createPostF(input: TPostInputF!): TPostDTO!
   createImage(input: TImageInput!): TImageDTO!
   createManyImage(input: [TImageInput!]!): [TImageDTO!]!
   updateImage(input: TImageInput!): TImageDTO!
@@ -230,6 +234,7 @@ input TUserInput {
   bio: String
   profilePicture: String
   createdAt: DateTime
+  role: String
 }
 
 input TPostInput {
@@ -239,6 +244,13 @@ input TPostInput {
   content: String
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+input TPostInputF {
+  title: String!
+  content: String!
+  userId: String!
+  imageIds: [String!]
 }
 
 input TImageInput {

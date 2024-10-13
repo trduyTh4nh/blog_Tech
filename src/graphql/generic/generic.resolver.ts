@@ -574,8 +574,8 @@ export function createGenericResolver<T>(
         const id = input.id;
 
         input.createDate = new Date();
-        input.createId = user.id;
-        input.modifyId = user.id;
+        // input.createId = user.id;
+        // input.modifyId = user.id;
         input.modifyDate = new Date();
 
         if (!id) {
@@ -646,8 +646,8 @@ export function createGenericResolver<T>(
           throw new Error("Record not found");
         }
 
-        input.modifyDate = new Date();
-        input.modifyId = user.id;
+        // input.modifyDate = new Date();
+        // input.modifyId = user.id;
 
         await this.repository.update(id, input);
         return await this.repository.findOne({
