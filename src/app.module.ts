@@ -12,6 +12,7 @@ import { TImage } from "./entities/timage";
 import { PostModule } from "./graphql/post/post.module";
 import { ImageModule } from "./graphql/image/image.module";
 import { AuthModule } from "./auth/auth.module";
+import { TPostSection } from "./entities/tpost_section";
 
 @Module({
   imports: [
@@ -37,7 +38,7 @@ import { AuthModule } from "./auth/auth.module";
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([TPost, TUser, TImage]),
+    TypeOrmModule.forFeature([TPost, TUser, TImage, TPostSection]),
     AuthModule,
     UserModule,
     PostModule,

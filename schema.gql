@@ -125,6 +125,7 @@ input TPostWhereInput {
   updatedAt: DateFilter
   user: TUserWhereInput
   images: TImageWhereInput
+  sections: TPostSectionWhereInput
 }
 
 input TImageWhereInput {
@@ -137,6 +138,31 @@ input TImageWhereInput {
   createdAt: DateFilter
   postId: StringFilter
   post: TPostWhereInput
+}
+
+input TPostSectionWhereInput {
+  AND: [TPostSectionWhereInput!]
+  OR: [TPostSectionWhereInput!]
+  NOT: [TPostSectionWhereInput!]
+  id: StringFilter
+  postId: StringFilter
+  order: NumberFilter
+  header: StringFilter
+  content: StringFilter
+  imageUrl: StringFilter
+  type: StringFilter
+  post: TPostWhereInput
+}
+
+input NumberFilter {
+  equals: Float
+  not: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
 }
 
 input TUserOrderByInput {
@@ -165,6 +191,7 @@ input TPostOrderByInput {
   updatedAt: SortEnumType
   user: [TUserOrderByInput!]
   images: [TImageOrderByInput!]
+  sections: [TPostSectionOrderByInput!]
 }
 
 input TImageOrderByInput {
@@ -173,6 +200,17 @@ input TImageOrderByInput {
   description: SortEnumType
   createdAt: SortEnumType
   postId: SortEnumType
+  post: [TPostOrderByInput!]
+}
+
+input TPostSectionOrderByInput {
+  id: SortEnumType
+  postId: SortEnumType
+  order: SortEnumType
+  header: SortEnumType
+  content: SortEnumType
+  imageUrl: SortEnumType
+  type: SortEnumType
   post: [TPostOrderByInput!]
 }
 

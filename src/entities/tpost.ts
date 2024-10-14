@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { TUser } from "./tuser";
 import { TImage } from "./timage";
+import { TPostSection } from "./tpost_section";
 
 @Entity("post")
 export class TPost {
@@ -43,4 +44,7 @@ export class TPost {
 
   @OneToMany(() => TImage, (image) => image.post)
   images: TImage[];
+
+  @OneToMany(() => TPostSection, (section) => section.post)
+  sections: TPostSection[];
 }
