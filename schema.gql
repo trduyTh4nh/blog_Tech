@@ -66,25 +66,98 @@ type TImageDTOPaginatedResponse {
   pageInfo: PaginationInfo!
 }
 
+type TPostSectionTypeDTO {
+  id: String
+  name: String
+  postSections: [TPostSectionDTO!]
+}
+
+type TPostSectionListDTO {
+  id: String
+  sectionId: String
+  item: String
+  image: String
+  sections: TPostSectionDTO
+}
+
+type TPostSectionCodeDTO {
+  id: String
+  sectionId: String
+  code: String
+  language: String
+  image: String
+  section: TPostSectionDTO
+}
+
+type TPostSectionParagraphDTO {
+  id: String
+  sectionId: String
+  content: String
+  image: String
+  section: TPostSectionDTO
+}
+
+type TPostSectionDTO {
+  id: String
+  postId: String
+  order: Float
+  header: String
+  content: String
+  imageUrl: String
+  type: String
+  post: TPostDTO
+  sectionType: TPostSectionTypeDTO
+  listItems: [TPostSectionListDTO!]
+  codeItems: [TPostSectionCodeDTO!]
+  paragraphItems: [TPostSectionParagraphDTO!]
+}
+
+type TPostSectionDTOPaginatedResponse {
+  items: [TPostSectionDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TPostSectionTypeDTOPaginatedResponse {
+  items: [TPostSectionTypeDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TPostSectionListDTOPaginatedResponse {
+  items: [TPostSectionListDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TPostSectionCodeDTOPaginatedResponse {
+  items: [TPostSectionCodeDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TPostSectionParagraphDTOPaginatedResponse {
+  items: [TPostSectionParagraphDTO!]!
+  pageInfo: PaginationInfo!
+}
+
 type Query {
+  getPostSectionCode(where: TPostSectionCodeWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TPostSectionCodeOrderByInput!], groupBy: [PostSectionCodeGroupByFieldsEnum!]): TPostSectionCodeDTOPaginatedResponse!
+  getPostSectionParagraph(where: TPostSectionParagraphWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TPostSectionParagraphOrderByInput!], groupBy: [PostSectionParagraphGroupByFieldsEnum!]): TPostSectionParagraphDTOPaginatedResponse!
   getUser(where: TUserWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TUserOrderByInput!], groupBy: [UserGroupByFieldsEnum!]): TUserDTOPaginatedResponse!
   getPost(where: TPostWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TPostOrderByInput!], groupBy: [PostGroupByFieldsEnum!]): TPostDTOPaginatedResponse!
   getImage(where: TImageWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TImageOrderByInput!], groupBy: [ImageGroupByFieldsEnum!]): TImageDTOPaginatedResponse!
+  getPostSection(where: TPostSectionWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TPostSectionOrderByInput!], groupBy: [PostSectionGroupByFieldsEnum!]): TPostSectionDTOPaginatedResponse!
+  getPostSectionType(where: TPostSectionTypeWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TPostSectionTypeOrderByInput!], groupBy: [PostSectionTypeGroupByFieldsEnum!]): TPostSectionTypeDTOPaginatedResponse!
+  getPostSectionList(where: TPostSectionListWhereInput, skip: Float = 0, take: Float = 100, orderBy: [TPostSectionListOrderByInput!], groupBy: [PostSectionListGroupByFieldsEnum!]): TPostSectionListDTOPaginatedResponse!
 }
 
-input TUserWhereInput {
-  AND: [TUserWhereInput!]
-  OR: [TUserWhereInput!]
-  NOT: [TUserWhereInput!]
+input TPostSectionCodeWhereInput {
+  AND: [TPostSectionCodeWhereInput!]
+  OR: [TPostSectionCodeWhereInput!]
+  NOT: [TPostSectionCodeWhereInput!]
   id: StringFilter
-  userName: StringFilter
-  email: StringFilter
-  password: StringFilter
-  bio: StringFilter
-  profilePicture: StringFilter
-  createdAt: DateFilter
-  role: StringFilter
-  posts: TPostWhereInput
+  sectionId: StringFilter
+  code: StringFilter
+  language: StringFilter
+  image: StringFilter
+  section: TPostSectionWhereInput
 }
 
 input StringFilter {
@@ -102,15 +175,34 @@ input StringFilter {
   endsWith: String
 }
 
-input DateFilter {
-  equals: DateTime
-  not: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
+input TPostSectionWhereInput {
+  AND: [TPostSectionWhereInput!]
+  OR: [TPostSectionWhereInput!]
+  NOT: [TPostSectionWhereInput!]
+  id: StringFilter
+  postId: StringFilter
+  order: NumberFilter
+  header: StringFilter
+  content: StringFilter
+  imageUrl: StringFilter
+  type: StringFilter
+  sectionTypeId: StringFilter
+  post: TPostWhereInput
+  sectionType: TPostSectionTypeWhereInput
+  listItems: TPostSectionListWhereInput
+  codeItems: TPostSectionCodeWhereInput
+  paragraphItems: TPostSectionParagraphWhereInput
+}
+
+input NumberFilter {
+  equals: Float
+  not: Float
+  in: [Float!]
+  notIn: [Float!]
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
 }
 
 input TPostWhereInput {
@@ -128,6 +220,32 @@ input TPostWhereInput {
   sections: TPostSectionWhereInput
 }
 
+input DateFilter {
+  equals: DateTime
+  not: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+}
+
+input TUserWhereInput {
+  AND: [TUserWhereInput!]
+  OR: [TUserWhereInput!]
+  NOT: [TUserWhereInput!]
+  id: StringFilter
+  userName: StringFilter
+  email: StringFilter
+  password: StringFilter
+  bio: StringFilter
+  profilePicture: StringFilter
+  createdAt: DateFilter
+  role: StringFilter
+  posts: TPostWhereInput
+}
+
 input TImageWhereInput {
   AND: [TImageWhereInput!]
   OR: [TImageWhereInput!]
@@ -140,46 +258,65 @@ input TImageWhereInput {
   post: TPostWhereInput
 }
 
-input TPostSectionWhereInput {
-  AND: [TPostSectionWhereInput!]
-  OR: [TPostSectionWhereInput!]
-  NOT: [TPostSectionWhereInput!]
+input TPostSectionTypeWhereInput {
+  AND: [TPostSectionTypeWhereInput!]
+  OR: [TPostSectionTypeWhereInput!]
+  NOT: [TPostSectionTypeWhereInput!]
   id: StringFilter
-  postId: StringFilter
-  order: NumberFilter
-  header: StringFilter
+  name: StringFilter
+  sections: TPostSectionWhereInput
+}
+
+input TPostSectionListWhereInput {
+  AND: [TPostSectionListWhereInput!]
+  OR: [TPostSectionListWhereInput!]
+  NOT: [TPostSectionListWhereInput!]
+  id: StringFilter
+  sectionId: StringFilter
+  item: StringFilter
+  image: StringFilter
+  section: TPostSectionWhereInput
+}
+
+input TPostSectionParagraphWhereInput {
+  AND: [TPostSectionParagraphWhereInput!]
+  OR: [TPostSectionParagraphWhereInput!]
+  NOT: [TPostSectionParagraphWhereInput!]
+  id: StringFilter
+  sectionId: StringFilter
   content: StringFilter
-  imageUrl: StringFilter
-  type: StringFilter
-  post: TPostWhereInput
+  image: StringFilter
+  section: TPostSectionWhereInput
 }
 
-input NumberFilter {
-  equals: Float
-  not: Float
-  in: [Float!]
-  notIn: [Float!]
-  lt: Float
-  lte: Float
-  gt: Float
-  gte: Float
-}
-
-input TUserOrderByInput {
+input TPostSectionCodeOrderByInput {
   id: SortEnumType
-  userName: SortEnumType
-  email: SortEnumType
-  password: SortEnumType
-  bio: SortEnumType
-  profilePicture: SortEnumType
-  createdAt: SortEnumType
-  role: SortEnumType
-  posts: [TPostOrderByInput!]
+  sectionId: SortEnumType
+  code: SortEnumType
+  language: SortEnumType
+  image: SortEnumType
+  section: [TPostSectionOrderByInput!]
 }
 
 enum SortEnumType {
   ASC
   DESC
+}
+
+input TPostSectionOrderByInput {
+  id: SortEnumType
+  postId: SortEnumType
+  order: SortEnumType
+  header: SortEnumType
+  content: SortEnumType
+  imageUrl: SortEnumType
+  type: SortEnumType
+  sectionTypeId: SortEnumType
+  post: [TPostOrderByInput!]
+  sectionType: [TPostSectionTypeOrderByInput!]
+  listItems: [TPostSectionListOrderByInput!]
+  codeItems: [TPostSectionCodeOrderByInput!]
+  paragraphItems: [TPostSectionParagraphOrderByInput!]
 }
 
 input TPostOrderByInput {
@@ -194,6 +331,18 @@ input TPostOrderByInput {
   sections: [TPostSectionOrderByInput!]
 }
 
+input TUserOrderByInput {
+  id: SortEnumType
+  userName: SortEnumType
+  email: SortEnumType
+  password: SortEnumType
+  bio: SortEnumType
+  profilePicture: SortEnumType
+  createdAt: SortEnumType
+  role: SortEnumType
+  posts: [TPostOrderByInput!]
+}
+
 input TImageOrderByInput {
   id: SortEnumType
   imageUrl: SortEnumType
@@ -203,15 +352,45 @@ input TImageOrderByInput {
   post: [TPostOrderByInput!]
 }
 
-input TPostSectionOrderByInput {
+input TPostSectionTypeOrderByInput {
   id: SortEnumType
-  postId: SortEnumType
-  order: SortEnumType
-  header: SortEnumType
+  name: SortEnumType
+  sections: [TPostSectionOrderByInput!]
+}
+
+input TPostSectionListOrderByInput {
+  id: SortEnumType
+  sectionId: SortEnumType
+  item: SortEnumType
+  image: SortEnumType
+  section: [TPostSectionOrderByInput!]
+}
+
+input TPostSectionParagraphOrderByInput {
+  id: SortEnumType
+  sectionId: SortEnumType
   content: SortEnumType
-  imageUrl: SortEnumType
-  type: SortEnumType
-  post: [TPostOrderByInput!]
+  image: SortEnumType
+  section: [TPostSectionOrderByInput!]
+}
+
+"""Fields available for grouping for PostSectionCodeGroupByFieldsEnum"""
+enum PostSectionCodeGroupByFieldsEnum {
+  id
+  sectionId
+  code
+  language
+  image
+}
+
+"""
+Fields available for grouping for PostSectionParagraphGroupByFieldsEnum
+"""
+enum PostSectionParagraphGroupByFieldsEnum {
+  id
+  sectionId
+  content
+  image
 }
 
 """Fields available for grouping for UserGroupByFieldsEnum"""
@@ -245,7 +424,43 @@ enum ImageGroupByFieldsEnum {
   postId
 }
 
+"""Fields available for grouping for PostSectionGroupByFieldsEnum"""
+enum PostSectionGroupByFieldsEnum {
+  id
+  postId
+  order
+  header
+  content
+  imageUrl
+  type
+  sectionTypeId
+}
+
+"""Fields available for grouping for PostSectionTypeGroupByFieldsEnum"""
+enum PostSectionTypeGroupByFieldsEnum {
+  id
+  name
+}
+
+"""Fields available for grouping for PostSectionListGroupByFieldsEnum"""
+enum PostSectionListGroupByFieldsEnum {
+  id
+  sectionId
+  item
+  image
+}
+
 type Mutation {
+  createPostSectionCode(input: TPostSectionCodeInput!): TPostSectionCodeDTO!
+  createManyPostSectionCode(input: [TPostSectionCodeInput!]!): [TPostSectionCodeDTO!]!
+  updatePostSectionCode(input: TPostSectionCodeInput!): TPostSectionCodeDTO!
+  updateManyPostSectionCode(input: [TPostSectionCodeInput!]!): [TPostSectionCodeDTO!]!
+  deletePostSectionCode(id: String!): BaseResponse!
+  createPostSectionParagraph(input: TPostSectionParagraphInput!): TPostSectionParagraphDTO!
+  createManyPostSectionParagraph(input: [TPostSectionParagraphInput!]!): [TPostSectionParagraphDTO!]!
+  updatePostSectionParagraph(input: TPostSectionParagraphInput!): TPostSectionParagraphDTO!
+  updateManyPostSectionParagraph(input: [TPostSectionParagraphInput!]!): [TPostSectionParagraphDTO!]!
+  deletePostSectionParagraph(id: String!): BaseResponse!
   createUser(input: TUserInput!): TUserDTO!
   createManyUser(input: [TUserInput!]!): [TUserDTO!]!
   updateUser(input: TUserInput!): TUserDTO!
@@ -262,6 +477,36 @@ type Mutation {
   updateImage(input: TImageInput!): TImageDTO!
   updateManyImage(input: [TImageInput!]!): [TImageDTO!]!
   deleteImage(id: String!): BaseResponse!
+  createPostSection(input: TPostSectionInput!): TPostSectionDTO!
+  createManyPostSection(input: [TPostSectionInput!]!): [TPostSectionDTO!]!
+  updatePostSection(input: TPostSectionInput!): TPostSectionDTO!
+  updateManyPostSection(input: [TPostSectionInput!]!): [TPostSectionDTO!]!
+  deletePostSection(id: String!): BaseResponse!
+  createPostSectionType(input: TPostSectionTypeInput!): TPostSectionTypeDTO!
+  createManyPostSectionType(input: [TPostSectionTypeInput!]!): [TPostSectionTypeDTO!]!
+  updatePostSectionType(input: TPostSectionTypeInput!): TPostSectionTypeDTO!
+  updateManyPostSectionType(input: [TPostSectionTypeInput!]!): [TPostSectionTypeDTO!]!
+  deletePostSectionType(id: String!): BaseResponse!
+  createPostSectionList(input: TPostSectionListInput!): TPostSectionListDTO!
+  createManyPostSectionList(input: [TPostSectionListInput!]!): [TPostSectionListDTO!]!
+  updatePostSectionList(input: TPostSectionListInput!): TPostSectionListDTO!
+  updateManyPostSectionList(input: [TPostSectionListInput!]!): [TPostSectionListDTO!]!
+  deletePostSectionList(id: String!): BaseResponse!
+}
+
+input TPostSectionCodeInput {
+  id: String
+  sectionId: String
+  code: String
+  language: String
+  image: String
+}
+
+input TPostSectionParagraphInput {
+  id: String
+  sectionId: String
+  content: String
+  image: String
 }
 
 input TUserInput {
@@ -297,4 +542,27 @@ input TImageInput {
   description: String
   createdAt: DateTime
   postId: String
+}
+
+input TPostSectionInput {
+  id: String
+  postId: String
+  order: Float
+  header: String
+  content: String
+  imageUrl: String
+  type: String
+  sectionTypeId: String
+}
+
+input TPostSectionTypeInput {
+  id: String
+  name: String
+}
+
+input TPostSectionListInput {
+  id: String
+  sectionId: String
+  item: String
+  image: String
 }

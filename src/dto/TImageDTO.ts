@@ -30,3 +30,15 @@ export class TImageInputDTO {
   @Field(() => String, { nullable: true })
   postId: string;
 }
+
+@InputType()
+export class TImageRestInputDTO {
+  @Field()
+  file: string;
+
+  @Field({ nullable: true })
+  description: string;
+
+  @Field(() => String, { nullable: true })
+  postId: string;
+}
