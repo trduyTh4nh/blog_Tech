@@ -13,6 +13,7 @@ export class AppController {
   sayHi() {
     return {
       message: "HOSTED SERVER SUCCESSFULLY 💗🍵🔥!",
+      message2: "Thêm 1 message để test nè",
     };
   }
 }
