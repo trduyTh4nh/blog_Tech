@@ -12,7 +12,7 @@ export class AppController {
   @Get("/hello")
   sayHi() {
     return {
-      message: "Hello world!",
+      message: "HOSTED SERVER SUCCESSFULLY 💗🍵🔥!",
     };
   }
 }
