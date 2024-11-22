@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -22,5 +23,11 @@ export class ImageRestController {
     const image: TImageRestInputDTO = body;
     image.file = file;
     return this.imageService.createImage(image);
+  }
+  @Get("hello")
+  async Hello() {
+    return {
+      message: "hello!",
+    };
   }
 }

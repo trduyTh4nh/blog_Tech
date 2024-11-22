@@ -34,7 +34,6 @@ export class PostImageService {
     }
   }
 
-  // làm cía này
   async deleteImageForPostSection(idPostSection: string, fileName: any) {
     try {
       const findPostSection = await this.repository.findOne({

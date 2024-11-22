@@ -6,6 +6,7 @@ import {
   UseInterceptors,
   BadRequestException,
   NotFoundException,
+  Get,
 } from "@nestjs/common";
 import { PostImageService } from "./post-image.service";
 import { FileInterceptor } from "@nestjs/platform-express";
