@@ -15,57 +15,6 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type TPostDTO {
-  id: String
-  title: String
-  content: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  user: TUserDTO
-  images: [TImageDTO!]
-}
-
-type TUserDTO {
-  id: String
-  userName: String
-  email: String
-  password: String
-  bio: String
-  profilePicture: String
-  posts: [TPostDTO!]
-  createdAt: DateTime
-}
-
-type BaseResponse {
-  success: Boolean
-  code: String
-  message: String
-}
-
-type PaginationInfo {
-  totalItems: Int!
-  totalPages: Int!
-  itemsPerPage: Int!
-  currentPage: Int!
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-}
-
-type TUserDTOPaginatedResponse {
-  items: [TUserDTO!]!
-  pageInfo: PaginationInfo!
-}
-
-type TPostDTOPaginatedResponse {
-  items: [TPostDTO!]!
-  pageInfo: PaginationInfo!
-}
-
-type TImageDTOPaginatedResponse {
-  items: [TImageDTO!]!
-  pageInfo: PaginationInfo!
-}
-
 type TPostSectionTypeDTO {
   id: String
   name: String
@@ -110,6 +59,58 @@ type TPostSectionDTO {
   listItems: [TPostSectionListDTO!]
   codeItems: [TPostSectionCodeDTO!]
   paragraphItems: [TPostSectionParagraphDTO!]
+}
+
+type TPostDTO {
+  id: String
+  title: String
+  content: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: TUserDTO
+  images: [TImageDTO!]
+  sections: [TPostSectionDTO!]
+}
+
+type TUserDTO {
+  id: String
+  userName: String
+  email: String
+  password: String
+  bio: String
+  profilePicture: String
+  posts: [TPostDTO!]
+  createdAt: DateTime
+}
+
+type BaseResponse {
+  success: Boolean
+  code: String
+  message: String
+}
+
+type PaginationInfo {
+  totalItems: Int!
+  totalPages: Int!
+  itemsPerPage: Int!
+  currentPage: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type TUserDTOPaginatedResponse {
+  items: [TUserDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TPostDTOPaginatedResponse {
+  items: [TPostDTO!]!
+  pageInfo: PaginationInfo!
+}
+
+type TImageDTOPaginatedResponse {
+  items: [TImageDTO!]!
+  pageInfo: PaginationInfo!
 }
 
 type TPostSectionDTOPaginatedResponse {
@@ -471,7 +472,6 @@ type Mutation {
   updatePost(input: TPostInput!): TPostDTO!
   updateManyPost(input: [TPostInput!]!): [TPostDTO!]!
   deletePost(id: String!): BaseResponse!
-  createPostF(input: TPostInputF!): TPostDTO!
   createImage(input: TImageInput!): TImageDTO!
   createManyImage(input: [TImageInput!]!): [TImageDTO!]!
   updateImage(input: TImageInput!): TImageDTO!
@@ -527,13 +527,6 @@ input TPostInput {
   content: String
   createdAt: DateTime
   updatedAt: DateTime
-}
-
-input TPostInputF {
-  title: String!
-  content: String!
-  userId: String!
-  imageIds: [String!]
 }
 
 input TImageInput {

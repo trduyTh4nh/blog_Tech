@@ -1,6 +1,7 @@
 import { Field, InputType, ObjectType } from "@nestjs/graphql";
 import { TUserDTO } from "./TUserDTO";
 import { TImageDTO } from "./TImageDTO";
+import { TPostSectionDTO } from "./TPostSectionDTO";
 
 @ObjectType()
 export class TPostDTO {
@@ -24,6 +25,9 @@ export class TPostDTO {
 
   @Field(() => [TImageDTO], { nullable: true })
   images?: TImageDTO[];
+
+  @Field(() => [TPostSectionDTO], { nullable: true })
+  sections?: TPostSectionDTO[];
 }
 
 @InputType("TPostInputF")
@@ -40,4 +44,6 @@ export class TPostInputDTO {
   @Field(() => [String], { nullable: true })
   imageIds?: string[];
   // chỗ này nhớ call api tạo hình ảnh rồi lấy id ảnh save vào đây
+  @Field(() => [TPostSectionDTO], { nullable: true })
+  sections?: TPostSectionDTO[];
 }

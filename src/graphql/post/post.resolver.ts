@@ -28,35 +28,36 @@ export class PostResolver extends createGenericResolver<TPost>(
     super(postRepository);
   }
 
-  @Mutation(() => TPostDTO)
-  async createPostF(@Args("input") input: TPostInputDTO): Promise<TPostDTO> {
-    // check user
-    const user = await this.userRepository.findOne({
-      where: { id: input.userId },
-    });
+  // @Mutation(() => TPostDTO)
+  // async createPostF(@Args("input") input: TPostInputDTO): Promise<TPostDTO> {
+  //   // check user
+  //   const user = await this.userRepository.findOne({
+  //     where: { id: input.userId },
+  //   });
 
-    if (!user) {
-      throw new Error("User not found!");
-    }
+  //   if (!user) {
+  //     throw new Error("User not found!");
+  //   }
 
-    let images = [];
+  //   let images = [];
 
-    // mốt sẽ upload image ở đây sau đó dùng repo image tạo image sao đó lấy id image đó save vào repoImage
+  //   // mốt sẽ upload image ở đây sau đó dùng repo image tạo image sao đó lấy id image đó save vào repoImage
 
-    // trước mắt là handle theo cách này
+  //   // trước mắt là handle theo cách này
 
-    if (input.imageIds && input.imageIds.length > 0) {
-      images = await this.imageRepository.findByIds(input.imageIds);
-    }
-    const newPost = await this.postRepository.create({
-      title: input.title,
-      content: input.content,
-      user: user,
-      images: images,
-    });
+  //   if (input.imageIds && input.imageIds.length > 0) {
+  //     images = await this.imageRepository.findByIds(input.imageIds);
+  //   }
+  //   const newPost = await this.postRepository.create({
+  //     title: input.title,
+  //     content: input.content,
+  //     user: user,
+  //     images: images,
 
-    await this.postRepository.save(newPost);
+  //   });
 
-    return newPost;
-  }
+  //   await this.postRepository.save(newPost);
+
+  //   return newPost;
+  // }
 }

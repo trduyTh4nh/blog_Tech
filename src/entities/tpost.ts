@@ -45,6 +45,6 @@ export class TPost {
   @OneToMany(() => TImage, (image) => image.post)
   images: TImage[];
 
-  @OneToMany(() => TPostSection, (section) => section.post)
-  sections: TPostSection[];
+  @OneToMany(() => TPostSection, (section) => section.post, { nullable: true })
+  sections?: TPostSection[];
 }
